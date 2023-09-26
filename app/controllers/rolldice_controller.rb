@@ -1,47 +1,69 @@
-get("/dice/2/6") do
-  @rolls = []
+class RolldiceController < ApplicationController
 
-  2.times do
-    die = rand(1..6)
+  def home
+    render({ :template => "layouts/home" })
+  end
+  
+  def twosix
+    @rolls = []
 
-    @rolls.push(die)
+    2.times do
+      die = rand(1..6)
+  
+      @rolls.push(die)
+    end
+
+    render({ :template => "layouts/two_six" })
+
   end
 
-  erb(:two_six)
-end
+  def twoten
+    @rolls = []
 
-get("/dice/2/10") do
-  @rolls = []
+    2.times do
+      die = rand(1..10)
 
-  2.times do
-    die = rand(1..10)
+      @rolls.push(die)
+    end
 
-    @rolls.push(die)
+    render({ :template => "layouts/two_ten" })
+
   end
 
-  erb(:two_ten)
-end
+  def onetwenty
+    @rolls = []
 
-get("/dice/1/20") do
-  @rolls = []
+    1.times do
+      die = rand(1..20)
 
-  1.times do
-    die = rand(1..20)
+      @rolls.push(die)
+    end
 
-    @rolls.push(die)
+    render({ :template => "layouts/one_twenty" })
   end
 
-  erb(:one_twenty)
-end
+  def fivefour
+    @rolls = []
 
-get("/dice/5/4") do
-  @rolls = []
+    5.times do
+      die = rand(1..4)
 
-  5.times do
-    die = rand(1..4)
+      @rolls.push(die)
+    end
 
-    @rolls.push(die)
+    render({ :template => "layouts/five_four" })
   end
 
-  erb(:five_four)
+  def flexible
+    @rolls = []
+    @numdice = (params.fetch("numberofdice").to_i)
+    @numsides = (params.fetch("numberofsides").to_i)
+    @numdice.times do
+      die = rand(1..@numsides)
+
+      @rolls.push(die)
+    end
+
+    render({ :template => "layouts/flexible" })
+  end
 end
